@@ -20,7 +20,11 @@ $ git clone git://github.com/Dmitry404/CakePhpTwig.git
 public $viewClass = 'CakePhpTwig.Twig';
 ```
 
-* Create your views with .htm (by default) extension
+* Enable plugin into your bootstrap.php file
+
+```php
+CakePlugin::load('CakePhpTwig');
+```
 
 ### Simple example of usage
 
