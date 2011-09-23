@@ -21,3 +21,49 @@ public $viewClass = 'CakePhpTwig.Twig';
 ```
 
 * Create your views with .htm (by default) extension
+
+### Simple example of usage
+
+* layout (View/Layouts/default.htm)
+
+```html
+<html>
+<head>
+    {{ Html.charset() }}
+    <title>{% block title %}{% endblock %}</title>
+
+    {{ Html.css('cake.generic') }}
+
+    {% block scripts %}{% endblock %}
+</head>
+<body>
+    <div id="container">
+        <div id="header">
+            <h1>Test Page</h1>
+        </div>
+        <div id="content">
+            {% block content %}{% endblock %}
+        </div>
+        <div id="footer"></div>
+    </div>
+</body>
+</html>
+```
+
+* any view file (for example View/Pages/index.htm)
+
+```html
+{% extends "/View/Layouts/default.htm" %}
+
+{% block scripts %}
+  <script>
+    console.log('hello console');
+  </script>
+{% endblock %}
+
+{% block content %}
+    <span class="notice">
+        Hello World
+    </span>
+{% endblock %}
+```
