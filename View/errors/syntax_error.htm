@@ -1,0 +1,94 @@
+{#
+@author Silakov Mike
+@author Butakov Dmitriy
+#}
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <title>Twig Error</title>
+    <style type="text/css">
+        body {
+            background-color: #EEE;
+        }
+        .message, .stackTrace {
+            margin: 0 auto;
+        }
+        .message {
+            font-weight: bold;
+        }
+        .message span {
+            display: block;
+            background-color: #ffffff;
+            padding: 10px 10px;
+            border: 1px solid #f0f0f0;
+            -moz-border-radius: 10px;
+            -webkit-border-radius: 10px;
+            border-radius: 10px;
+        }
+        h2 {
+            font-family: Arial;
+        }
+        #errorBox {
+            display: block;
+            margin: 20px auto;
+            width: 750px;
+            padding: 30px;
+            background-color: #F6F6F6;
+            border: 1px solid #DFDFDF;
+            -moz-border-radius: 16px;
+            -webkit-border-radius: 16px;
+            border-radius: 16px;
+        }
+        #stackTraceBox {
+            display: block;
+            margin: 0 auto;
+            width: 750px;
+            padding: 30px;
+            background-color: #fff;
+            border: 1px solid #DFDFDF;
+            -moz-border-radius: 16px;
+            -webkit-border-radius: 16px;
+            border-radius: 16px;
+        }
+        .stackTrace ul {
+            list-style: none;
+        }
+        .stackTrace ul li {
+            padding-bottom: 5px;
+        }
+        .step {
+            font-weight: bold;
+        }
+        .call {
+            font-weight: bold;
+            background-color: #dff3ff;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="errorBox">
+        <div class="message">
+            <h2>Twig error occurred</h2>
+            <span>{{ e.getMessage }}</span>
+        </div>
+    </div>
+    <div id="stackTraceBox">
+        <div class="stackTrace">
+            <ul>
+            {% for step, trace in e.getTrace %}
+                <li>
+                    <span class="step">{{ step }}.</span>
+                    <span class="location">{{ trace.file }}:{{ trace.line }}</span>
+                    <span class="call">
+                        {{ trace.class }}{{ trace.type }}{{ trace.function }}
+                        {% if trace.args is empty %} () {% else %} (..) {% endif %}
+                    </span>
+                </li>
+            {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
