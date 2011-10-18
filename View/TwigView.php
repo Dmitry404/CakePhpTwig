@@ -7,15 +7,13 @@
  *
  * @autor Dmitriy Butakov
  */
-class TwigView extends View
-{
+class TwigView extends View {
     private $twig = null;
 
     /**
      * @param $controller Controller
      */
-    public function __construct($controller)
-    {
+    public function __construct($controller) {
         parent::__construct($controller);
 
         $defaultOptions = array(
@@ -38,8 +36,7 @@ class TwigView extends View
         }
     }
 
-    protected function _render($___viewFn, $___dataForView = array())
-    {
+    protected function _render($___viewFn, $___dataForView = array()) {
         if (file_exists($___viewFn) && strpos($___viewFn, APP) === 0) {
             $relativePathToTemplate = str_replace(APP, '', $___viewFn);
 
@@ -64,8 +61,7 @@ class TwigView extends View
         }
     }
 
-    private function getLoadedHelpers()
-    {
+    private function getLoadedHelpers() {
         $loadedHelpers = array();
         foreach ($this->Helpers->enabled() as $helper) {
             $loadedHelpers[$helper] = $this->Helpers->{$helper};
@@ -74,9 +70,8 @@ class TwigView extends View
         return $loadedHelpers;
     }
 
-    private function renderTwigExceptionPage(Exception $e)
-    {
-       $errorEnvironment = new Twig_Environment(
+    private function renderTwigExceptionPage(Exception $e) {
+        $errorEnvironment = new Twig_Environment(
            new Twig_Loader_Filesystem(__DIR__ . DS . 'errors')
        );
        $errorEnvironment
