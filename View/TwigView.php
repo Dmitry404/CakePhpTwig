@@ -68,9 +68,7 @@ class TwigView extends View
     {
         $loadedHelpers = array();
         foreach ($this->Helpers->enabled() as $helper) {
-            if (isset($this->{$helper})) {
-                $loadedHelpers[$helper] = $this->Helpers->{$helper};
-            }
+            $loadedHelpers[$helper] = $this->Helpers->{$helper};
         }
 
         return $loadedHelpers;
