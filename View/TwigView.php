@@ -67,9 +67,9 @@ class TwigView extends View
     private function getLoadedHelpers()
     {
         $loadedHelpers = array();
-        foreach ($this->helpers as $helper) {
+        foreach ($this->Helpers->enabled() as $helper) {
             if (isset($this->{$helper})) {
-                $loadedHelpers[$helper] = $this->{$helper};
+                $loadedHelpers[$helper] = $this->Helpers->{$helper};
             }
         }
 
