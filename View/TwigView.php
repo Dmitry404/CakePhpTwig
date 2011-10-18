@@ -26,6 +26,7 @@ class TwigView extends View {
         $this->twig = new Twig_Environment($loader, $defaultOptions);
 
         $this->ext = '.htm';
+        $this->autoLayout = false;
     }
 
     public function renderLayout($content_for_layout, $layout = null) {
@@ -37,7 +38,7 @@ class TwigView extends View {
     }
 
     protected function _render($___viewFn, $___dataForView = array()) {
-        if (file_exists($___viewFn) && strpos($___viewFn, APP) === 0) {
+        if ($this->isCorrectPathToTemplate($___viewFn) && $this->isCorrectTemplateExtension($___viewFn)) {
             $relativePathToTemplate = str_replace(APP, '', $___viewFn);
 
             $___dataForView = array_merge(
@@ -47,7 +48,7 @@ class TwigView extends View {
             );
 
             try {
-                return $this->twig->loadTemplate($relativePathToTemplate)->display($___dataForView);
+                return $this->twig->loadTemplate($relativePathToTemplate)->render($___dataForView);
             } catch (Exception $e) {
                 CakeLog::write('error', $e->getMessage() . $e->getTraceAsString());
 
@@ -79,4 +80,11 @@ class TwigView extends View {
            ->display(array('e' => $e));
     }
 
+    private function isCorrectPathToTemplate($pathToTemplateFile) {
+        return (strpos($pathToTemplateFile, APP) === 0);
+    }
+
+    private function isCorrectTemplateExtension($pathToTemplateFile) {
+        return (strpos($pathToTemplateFile, $this->ext) == (strlen($pathToTemplateFile) - strlen($this->ext)));
+    }
 }
